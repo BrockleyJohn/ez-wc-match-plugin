@@ -74,6 +74,7 @@ class Easify_MF_Shop extends Easify_WC_Shop {
             }
  
             $Product = $this->easify_server->GetProductFromEasify($EasifySku);
+            // Easify_Logging::Log('Easify_MF_Shop.UpdateProduct() - using data ' . print_r($Product, true));
             
             if ($Product->Published == FALSE) {
                 Easify_Logging::Log('Easify_MF_Shop.UpdateProduct() - Not published, deleting product and not updating.');
@@ -88,7 +89,7 @@ class Easify_MF_Shop extends Easify_WC_Shop {
             }           
             
             // calculate price from trade margin and cost price
-            $Price = round(($Product->CostPrice / (100 - $Product->TradeMargin) * 100), 4);
+            $Price = round(($Product->CostPrice / (100 - $Product->RetailMargin) * 100), 4);
             Easify_Logging::Log("Easify_MF_Shop.UpdateProduct() - price $Price");
 
             // catch reserved delivery SKUs and update delivery prices
