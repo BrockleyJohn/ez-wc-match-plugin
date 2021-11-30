@@ -88,8 +88,10 @@ class Easify_MF_Shop extends Easify_WC_Shop {
                 return;
             }           
             
-            // calculate price from trade margin and cost price
-            $Price = round(($Product->CostPrice / (100 - $Product->RetailMargin) * 100), 4);
+            // calculate price from retail margin and cost price
+            //$Price = round(($Product->CostPrice / (100 - $Product->RetailMargin) * 100), 4);
+            // more forward calculate price from trade margin and cost price
+            $Price = round(($Product->CostPrice / (100 - $Product->TradeMargin) * 100), 4);
             Easify_Logging::Log("Easify_MF_Shop.UpdateProduct() - price $Price");
 
             // catch reserved delivery SKUs and update delivery prices
@@ -151,7 +153,8 @@ class Easify_MF_Shop extends Easify_WC_Shop {
             }
             else
             {
-                update_post_meta($ProductId, '_stock_status', 'outofstock');                   
+                // more forward - dont mark out of stock
+                //update_post_meta($ProductId, '_stock_status', 'outofstock');                   
             }
 /*                        
             update_post_meta($ProductId, '_manage_stock', 'yes');
